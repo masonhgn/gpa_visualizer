@@ -165,7 +165,7 @@ class Transcript:
         plt.tight_layout()
 
         # Saving the Term GPA plot as an image
-        plt.savefig('term_gpa.png')
+        plt.savefig('images/term_gpa.png')
         plt.clf()
 
 
@@ -183,7 +183,7 @@ class Transcript:
         plt.tight_layout()
 
         # Saving the Cumulative GPA plot as an image
-        plt.savefig('cumulative_gpa.png')
+        plt.savefig('images/cumulative_gpa.png')
         plt.clf()
 
 
@@ -200,7 +200,7 @@ class Transcript:
         plt.tight_layout()
 
         # Saving the Cumulative GPA Units plot as an image
-        plt.savefig('cumulative_gpa_units.png')
+        plt.savefig('images/cumulative_gpa_units.png')
         plt.clf()
 
 
