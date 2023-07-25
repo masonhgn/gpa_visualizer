@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transcript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .gpa-charts {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gpa-charts img {
+            max-width: 50%;
+            padding: 10px;
+        }
+
+
+        .semester {
+            background-color: #222222;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .semester h2 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #444444;
+            color: #ffffff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        th {
+            background-color: #333333;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Transcript</h1>
+
+        <!-- GPA Charts -->
+        <div class="gpa-charts">
+            <h2>GPA Charts</h2>
+            <img src="cumulative_gpa.png" alt="Cumulative GPA Chart">
+            <img src="gpa_units.png" alt="GPA Units Chart">
+            <img src="term_gpa.png" alt="Term GPA Chart">
+        </div>
+
+        {% for semester in semesters %}
+        <div class="semester">
+            <h2>{{ semester.semester_period }}</h2>
+            <p>Term GPA: {{ semester.term_gpa }}</p>
+            <p>Cumulative GPA: {{ semester.cum_gpa }}</p>
+            <table>
+                <tr>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Grade Spec</th>
+                    <th>Course Units</th>
+                    <th>GPA Units</th>
+                </tr>
+                {% for course in semester.courses %}
+                <tr>
+                    <td>{{ course.code }}</td>
+                    <td>{{ course.title }}</td>
+                    <td>{{ course.grade_spec }}</td>
+                    <td>{{ course.course_units }}</td>
+                    <td>{{ course.gpa_units }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
