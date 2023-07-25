@@ -190,9 +190,12 @@ class Transcript:
             'Cumulative GPA Units': cum_gpa_units
         })
 
+
+        sns.set(style="dark", palette="deep", font_scale=2)
+        plt.figure(figsize=(12, 6))
+        plt.style.use('dark_background')
         # Generating line plots for each GPA metric
-        sns.set(style="dark", palette="deep", font_scale=3.0)
-        plt.figure(figsize=(24, 6))
+        sns.set_context("poster")  # Increase the context to make the font size bigger
 
         # Line plot for Term GPA
         sns.lineplot(x="Semester", y="Term GPA", data=gpa_data, marker='o', color='green', label='Term GPA')
@@ -209,11 +212,16 @@ class Transcript:
         plt.savefig('term_gpa.png')
         plt.clf()
 
+
+
+
+
         # Line plot for Cumulative GPA
-        plt.figure(figsize=(24, 6))
+        plt.figure(figsize=(12, 6))
         sns.lineplot(x="Semester", y="Cumulative GPA", data=gpa_data, marker='o', color='blue', label='Cumulative GPA')
 
         # Styling the Cumulative GPA plot
+        plt.ylim(2.4, 4.0)  # Set the y-axis limit to 0 and 4.0
         plt.xlabel("Semester")
         plt.ylabel("GPA")
         plt.title("Cumulative GPA")
@@ -225,24 +233,12 @@ class Transcript:
         plt.savefig('cumulative_gpa.png')
         plt.clf()
 
-        # Line plot for Cumulative GPA Points
-        plt.figure(figsize=(24, 6))
-        sns.lineplot(x="Semester", y="Cumulative GPA Points", data=gpa_data, marker='o', color='red', label='Cumulative GPA Points')
 
-        # Styling the Cumulative GPA Points plot
-        plt.xlabel("Semester")
-        plt.ylabel("GPA Points")
-        plt.title("Cumulative GPA Points")
-        plt.xticks(rotation=45)
-        plt.legend()
-        plt.tight_layout()
 
-        # Saving the Cumulative GPA Points plot as an image
-        plt.savefig('cumulative_gpa_points.png')
-        plt.clf()
+
 
         # Line plot for Cumulative GPA Units
-        plt.figure(figsize=(18, 6))
+        plt.figure(figsize=(12, 6))
         sns.lineplot(x="Semester", y="Cumulative GPA Units", data=gpa_data, marker='o', color='purple', label='Cumulative GPA Units')
 
         # Styling the Cumulative GPA Units plot
@@ -256,6 +252,7 @@ class Transcript:
         # Saving the Cumulative GPA Units plot as an image
         plt.savefig('cumulative_gpa_units.png')
         plt.clf()
+
 
         # Revert back to default seaborn style
         sns.set()
@@ -277,38 +274,6 @@ class Transcript:
 
 
 
-def plot_cumulative_gpa(transcript_df):
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(data=transcript_df, x="Semester", y="Cumulative GPA", marker="o")
-    plt.xticks(rotation=45)
-    plt.title("Change in Cumulative GPA")
-    plt.xlabel("Semester")
-    plt.ylabel("Cumulative GPA")
-    plt.tight_layout()
-    plt.savefig("cumulative_gpa_plot.png")  # Save the plot as an image file
-    plt.close()
-
-def plot_cumulative_gpa_units(transcript_df):
-    plt.figure(figsize=(10, 6))
-    sns.barplot(data=transcript_df, x="Semester", y="Cumulative GPA Units", palette="coolwarm")
-    plt.xticks(rotation=45)
-    plt.title("Change in Cumulative GPA Units")
-    plt.xlabel("Semester")
-    plt.ylabel("Cumulative GPA Units")
-    plt.tight_layout()
-    plt.savefig("cumulative_gpa_units_plot.png")  # Save the plot as an image file
-    plt.close()
-
-def plot_term_gpa(transcript_df):
-    plt.figure(figsize=(10, 6))
-    sns.barplot(data=transcript_df, x="Semester", y="Term GPA", palette="muted")
-    plt.xticks(rotation=45)
-    plt.title("Change in Term GPA")
-    plt.xlabel("Semester")
-    plt.ylabel("Term GPA")
-    plt.tight_layout()
-    plt.savefig("term_gpa_plot.png")  # Save the plot as an image file
-    plt.close()
 
 
 

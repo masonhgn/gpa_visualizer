@@ -25,15 +25,26 @@
             text-align: center;
             margin-bottom: 40px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-between; /* Add this to display charts side by side */
+            gap: 10px;
+            border-collapse: collapse;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #444444;
+            
         }
 
         .gpa-charts img {
-            max-width: 50%;
-            padding: 10px;
+            max-width: 100%;
+            height: 300px; /* Set the height to your desired value (e.g., 300px) */
+            border-radius: 10px;
         }
 
+        .gpa-charts h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 
         .semester {
             background-color: #222222;
@@ -52,18 +63,89 @@
             border-collapse: collapse;
             background-color: #444444;
             color: #ffffff;
+            table-layout: fixed;
         }
 
         th, td {
             padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #ffffff;
+            border-bottom: 1px solid #afafaf;
         }
 
         th {
             background-color: #333333;
         }
 
+        /* Define CSS classes for specific grade letters */
+        .grade-A {
+            color: rgb(3, 255, 3);
+            font-weight: bold;
+        }
+
+        .grade-A-minus {
+            color: rgb(34, 202, 42);
+            font-weight: bold;
+        }
+
+        .grade-B-plus {
+            color: rgb(134, 194, 24);
+            font-weight: bold;
+        }
+
+        .grade-B {
+            color: rgb(180, 207, 129);
+            font-weight: bold;
+        }
+
+        .grade-B-minus {
+            color: rgb(176, 192, 147);
+            font-weight: bold;
+        }
+
+        .grade-C-plus {
+            color: rgb(182, 40, 4);
+            font-weight: bold;
+        }
+
+        .grade-C {
+            color: rgb(192, 102, 0);
+            font-weight: bold;
+        }
+
+        .grade-C-minus {
+            color: rgb(182, 39, 3);
+            font-weight: bold;
+        }
+
+        .grade-D-plus {
+            color: rgb(202, 4, 4);
+            font-weight: bold;
+        }
+
+        .grade-D {
+            color: rgb(199, 5, 5);
+            font-weight: bold;
+        }
+
+        .grade-D-minus {
+            color: rgb(194, 4, 4);
+            font-weight: bold;
+        }
+
+        .grade-F {
+            color: rgb(197, 5, 5);
+            font-weight: bold;
+        }
+
+        .grade-W, .grade-I {
+            color: rgb(236, 141, 141);
+            font-weight: bold;
+        }
+
+        .grade-S {
+            color: rgb(129, 241, 129);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -72,13 +154,21 @@
 
         <!-- GPA Charts -->
         <div class="gpa-charts">
-            <h2>GPA Charts</h2>
-            <img src="cumulative_gpa.png" alt="Cumulative GPA Chart">
-            <img src="gpa_units.png" alt="GPA Units Chart">
-            <img src="term_gpa.png" alt="Term GPA Chart">
+            <div class="gpa-chart">
+                <h2>Cumulative GPA (by semester)</h2>
+                <img src="cumulative_gpa.png" alt="Cumulative GPA Chart">
+            </div>
+            <div class="gpa-chart">
+                <h2>Term GPA (by semester)</h2>
+                <img src="term_gpa.png" alt="Term GPA Chart">
+            </div>
+            <div class="gpa-chart">
+                <h2>GPA Hours (by semester)</h2>
+                <img src="cumulative_gpa_units.png" alt="GPA Units Chart">
+            </div>
         </div>
 
-        {% for semester in semesters %}
+        {% for semester in semesters[::-1] %}
         <div class="semester">
             <h2>{{ semester.semester_period }}</h2>
             <p>Term GPA: {{ semester.term_gpa }}</p>
@@ -95,7 +185,7 @@
                 <tr>
                     <td>{{ course.code }}</td>
                     <td>{{ course.title }}</td>
-                    <td>{{ course.grade_spec }}</td>
+                    <td class="{% if course.grade_spec == 'A' %}grade-A{% elif course.grade_spec == 'A-' %}grade-A-minus{% elif course.grade_spec == 'B+' %}grade-B-plus{% elif course.grade_spec == 'B' %}grade-B{% elif course.grade_spec == 'B-' %}grade-B-minus{% elif course.grade_spec == 'C+' %}grade-C-plus{% elif course.grade_spec == 'C' %}grade-C{% elif course.grade_spec == 'C-' %}grade-C-minus{% elif course.grade_spec == 'D+' %}grade-D-plus{% elif course.grade_spec == 'D' %}grade-D{% elif course.grade_spec == 'D-' %}grade-D-minus{% elif course.grade_spec == 'F' %}grade-F{% elif course.grade_spec == 'W' or course.grade_spec == 'I' %}grade-W{% elif course.grade_spec == 'S' %}grade-S{% endif %}">{{ course.grade_spec }}</td>
                     <td>{{ course.course_units }}</td>
                     <td>{{ course.gpa_units }}</td>
                 </tr>
