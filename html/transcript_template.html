@@ -23,7 +23,7 @@
 
         .gpa-charts {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between; /* Add this to display charts side by side */
             gap: 10px;
@@ -34,6 +34,34 @@
             background-color: #444444;
             
         }
+
+        .gpa-info {
+            text-align: center;
+            margin-bottom: 20px;
+            vertical-align: top;
+            display: inline-block;
+            justify-content: space-between; /* Add this to display charts side by side */
+            gap: 10px;
+            border-radius: 10px;
+            background-color: #444444;
+        }
+
+        .gpa-info::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .gpa-info-tile {
+            width: 280px;
+            height: 140px;
+            margin: 10px;
+            background-color: #303030;
+            border-radius: 10px;
+            float: left;
+            align-items: center;
+        }
+
 
         .gpa-charts img {
             max-width: 100%;
@@ -156,17 +184,33 @@
         <div class="gpa-charts">
             <div class="gpa-chart">
                 <h2>Cumulative GPA (by semester)</h2>
-                <img src="cumulative_gpa.png" alt="Cumulative GPA Chart">
+                <img src="../images/cumulative_gpa.png" alt="Cumulative GPA Chart">
             </div>
             <div class="gpa-chart">
                 <h2>Term GPA (by semester)</h2>
-                <img src="term_gpa.png" alt="Term GPA Chart">
+                <img src="../images/term_gpa.png" alt="Term GPA Chart">
             </div>
             <div class="gpa-chart">
                 <h2>GPA Hours (by semester)</h2>
-                <img src="cumulative_gpa_units.png" alt="GPA Units Chart">
+                <img src="../images/cumulative_gpa_units.png" alt="GPA Units Chart">
             </div>
         </div>
+
+        <div class="gpa-info">
+            <div class="gpa-info-tile">
+                <h4 style="font-size: 20px; margin: 5px 0;">Cumulative GPA change:</h4>
+                <p style="margin: 0;">(avg. % change per semester)</p>
+                <p style="font-size: 30px; font-weight: 600; margin: 10px 0; color: {% if avg_percent_change > 0 %}rgb(129, 241, 129);{% else %}rgb(194, 4, 4){% endif %};">
+                    {% if avg_percent_change > 0 %}
+                        +{{ avg_percent_change }}%
+                    {% else %}
+                        {{ avg_percent_change }}%
+                    {% endif %}
+                </p>
+            </div>
+            <div class="gpa-info-tile"></div>
+        </div>
+
 
         {% for semester in semesters[::-1] %}
         <div class="semester">
