@@ -68,4 +68,4 @@ class Semester:
         self.total_gpa_units = total_units
         total_score /= total_units
 
-        self.term_gpa = total_score
+        self.term_gpa = round(total_score,2)

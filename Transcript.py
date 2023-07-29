@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from Semester import *
+import numpy as np
 import jinja2
 
 class Transcript:
@@ -9,6 +10,7 @@ class Transcript:
         self.gpa = gpa
         self.total_courses = total_courses
         self.semesters = semesters
+        self.num_semesters = 0
         self.avg_percent_change = 0
 
     def print_transcript(self):
@@ -61,6 +63,7 @@ class Transcript:
             total_units += s.total_gpa_units
 
         self.gpa = total_score/total_units
+        self.num_semesters = len(self.semesters)
 
         total_percent_change, num_semesters = 0, 0
         cum_gpa_points, cum_gpa_units = 0, 0
@@ -82,7 +85,7 @@ class Transcript:
             total_percent_change += percent_change
             num_semesters += 1
         self.avg_percent_change = round(total_percent_change / max(num_semesters-1, 1),2)
-        print(num_semesters-1)
+        self.gpa = round(cum_gpa,2)
 
 
     def generate_dataframe(self):
@@ -169,9 +172,20 @@ class Transcript:
         plt.clf()
 
 
+
+
+        x_data = gpa_data["Semester"]
+        y_data = gpa_data["Cumulative GPA"]
+
+        # Calculate the coefficients of the best-fit line (y = mx + b)
+        coefficients = np.polyfit(range(len(x_data)), y_data, 1)
+        m, b = coefficients
+        best_fit_line = m * np.arange(len(x_data)) + b
+
         # Line plot for Cumulative GPA
         plt.figure(figsize=(12, 6))
         sns.lineplot(x="Semester", y="Cumulative GPA", data=gpa_data, marker='o', color='cyan', label='Cumulative GPA')
+        plt.plot(x_data, best_fit_line, color='red', linestyle='--', label='Trajectory', alpha=0.3)
 
         # Styling the Cumulative GPA plot
         plt.ylim(2.4, 4.0)  # Set the y-axis limit to 0 and 4.0
@@ -214,7 +228,7 @@ class Transcript:
         template_env = jinja2.Environment(loader=template_loader)
         template = template_env.get_template(template_file)
 
-        html_output = template.render(semesters=self.semesters,avg_percent_change=self.avg_percent_change)
+        html_output = template.render(semesters=self.semesters,avg_percent_change=self.avg_percent_change, gpa = self.gpa, num_semesters = self.num_semesters)
 
         with open(output_file, "w") as file:
             file.write(html_output)

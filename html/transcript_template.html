@@ -197,6 +197,20 @@
         </div>
 
         <div class="gpa-info">
+
+            <div class="gpa-info-tile">
+                <h4 style="font-size: 20px; margin: 5px 0;">Cumulative GPA:</h4>
+                <p style="font-size: 60px; font-weight: 600; margin: 0px 0; color: {% if gpa > 3.0 %}rgb(129, 241, 129);{% else %}rgb(194, 4, 4){% endif %};">
+                {{ gpa }}
+                </p>
+            </div>
+
+            <div class="gpa-info-tile">
+                <h4 style="font-size: 20px; margin: 5px 0;">Semesters Taken:</h4>
+                <p style="font-size: 60px; font-weight: 600; margin: 0 auto; color: white;">{{ num_semesters }}</p>
+            </div>
+
+
             <div class="gpa-info-tile">
                 <h4 style="font-size: 20px; margin: 5px 0;">Cumulative GPA change:</h4>
                 <p style="margin: 0;">(avg. % change per semester)</p>
@@ -208,7 +222,6 @@
                     {% endif %}
                 </p>
             </div>
-            <div class="gpa-info-tile"></div>
         </div>
 
 
