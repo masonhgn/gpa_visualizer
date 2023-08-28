@@ -1,4 +1,5 @@
-# This is a tool that I've created to help visualize transcript data. 
+#Transcript Visualizer Tool
+This is a tool that I've created to help visualize transcript data. 
 
 The program takes in a csv file with transcript data, and calculates various metrics on the data. Outputs to html/transcripts.html.
 More metrics are coming soon.
